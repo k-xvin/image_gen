@@ -7,3 +7,11 @@ edition = "2021"
 
 [dependencies]
 nannou = "0.18.1"
+
+[[example]]
+name = "square1"
+path = "src/square1.rs"
+
+[[example]]
+name = "square2"
+path = "src/square2.rs"

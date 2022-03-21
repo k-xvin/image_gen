@@ -1,0 +1,49 @@
+use nannou::prelude::*;
+
+struct Model {
+}
+
+fn main() {
+    nannou::app(model)
+        .view(view)
+        .run();
+}
+
+fn model(app: &App) -> Model {
+    app.new_window()
+    .size(800,600)
+    .key_pressed(key_pressed)
+    .build()
+    .unwrap();
+
+    Model {}
+}
+
+fn key_pressed(app: &App, _model: &mut Model, key: Key) {
+    if key == Key::Space {
+     app.main_window().capture_frame("screenshots/template.png");
+    }
+}
+
+fn view(app: &App, _model: &Model, _frame: Frame) {
+    let draw_once = true;
+    if draw_once && app.elapsed_frames() > 1 {
+        return;
+    }
+
+
+    let draw = app.draw();
+
+    draw.background().color(BLACK);
+
+
+    let center_rect: Rect<f32> = Rect::from_w_h(400.0, 400.0);
+    draw.rect()
+        .xy(center_rect.xy())
+        .wh(center_rect.wh())
+        .color(WHITE); 
+
+
+
+    draw.to_frame(app, &frame).unwrap();
+}

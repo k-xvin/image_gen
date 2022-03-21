@@ -24,7 +24,7 @@ fn model(app: &App) -> Model {
 
 fn key_pressed(app: &App, _model: &mut Model, key: Key) {
     if key == Key::Space {
-     app.main_window().capture_frame("screenshot.png");
+     app.main_window().capture_frame("screenshots/screenshot.png");
     }
 }
 
