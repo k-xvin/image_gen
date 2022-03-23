@@ -22,5 +22,9 @@ name = "square3"
 path = "src/square3.rs"
 
 [[example]]
+name = "square4"
+path = "src/square4.rs"
+
+[[example]]
 name = "collapse"
 path = "src/collapse.rs"
