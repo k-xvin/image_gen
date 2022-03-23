@@ -1,7 +1,8 @@
 use nannou::prelude::*;
 
 struct Model {
-    palette: Vec<Srgb<u8>>
+    palette: Vec<Srgb<u8>>,
+    background: wgpu::Texture,
 }
 
 fn main() {
@@ -13,6 +14,7 @@ fn main() {
 fn model(app: &App) -> Model {
     app.new_window()
     .size(1920,1080)
+    .fullscreen()
     .key_pressed(key_pressed)
     .build()
     .unwrap();
@@ -26,23 +28,23 @@ fn model(app: &App) -> Model {
         Srgb::new(96,65,43),
     ];
 
+    let assets = app.assets_path().unwrap();
+    let img_path = assets.join("backgrounds").join("darkest_hour.jpg");
+    let background = wgpu::Texture::from_path(app, img_path).unwrap();
+
     Model {
-        palette
+        palette,
+        background
     }
 }
 
 fn key_pressed(app: &App, _model: &mut Model, key: Key) {
     if key == Key::Space {
-     app.main_window().capture_frame("screenshots/square2.png");
+     app.main_window().capture_frame("screenshots/square2_1.png");
     }
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {
-    // let draw_once = true;
-    // if draw_once && app.elapsed_frames() > 1 {
-    //     return;
-    // }
-
     if app.elapsed_frames() % 60 != 0 {
         return;
     }
@@ -50,16 +52,20 @@ fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
 
     draw.background().color(model.palette[0]);
+    draw.texture(&model.background);
     
-    let center_rect: Rect<f32> = Rect::from_w_h(1920.0 - 100.0, 1080.0 - 100.0);
+    let center_rect: Rect<f32> = Rect::from_w_h(600.0, 600.0);
     draw.rect()
         .xy(center_rect.xy())
         .wh(center_rect.wh())
-        .color(model.palette[1]); 
+        .color(model.palette[3]); 
+
 
     split_random(&draw, center_rect, &rand_color, &model.palette);
 
     draw.to_frame(app, &frame).unwrap();
+
+    // app.main_window().capture_frame(format!("screenshots/square2/{}.png", app.elapsed_frames()));
 }
 
 // recursively split until rects are too small

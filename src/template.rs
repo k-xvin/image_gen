@@ -26,11 +26,9 @@ fn key_pressed(app: &App, _model: &mut Model, key: Key) {
 }
 
 fn view(app: &App, _model: &Model, _frame: Frame) {
-    let draw_once = true;
-    if draw_once && app.elapsed_frames() > 1 {
-        return;
-    }
-
+    // if app.elapsed_frames() % 60 != 0 {
+    //     return;
+    // }
 
     let draw = app.draw();
 
