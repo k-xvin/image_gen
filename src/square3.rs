@@ -28,8 +28,6 @@ fn model(app: &App) -> Model {
         Srgba::new(96,65,43,255),
     ];
 
-    let assets = app.assets_path().unwrap();
-
     Model {
         palette,
     }
