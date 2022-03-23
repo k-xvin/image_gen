@@ -15,3 +15,11 @@ path = "src/square1.rs"
 [[example]]
 name = "square2"
 path = "src/square2.rs"
+
+[[example]]
+name = "square3"
+path = "src/square3.rs"
+
+[[example]]
+name = "collapse"
+path = "src/collapse.rs"
