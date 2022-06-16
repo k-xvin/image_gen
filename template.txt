@@ -1,0 +1,3 @@
+[[example]]
+name = "template"
+path = "src/template.rs"

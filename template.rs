@@ -21,11 +21,13 @@ fn model(app: &App) -> Model {
 
 fn key_pressed(app: &App, _model: &mut Model, key: Key) {
     if key == Key::Space {
-     app.main_window().capture_frame("screenshots/collapse.png");
+     app.main_window().capture_frame("screenshots/template.png");
     }
 }
 
 fn view(app: &App, _model: &Model, frame: Frame) {
+
+    // Redraw every 60 frames (every second)
     // if app.elapsed_frames() % 60 != 0 {
     //     return;
     // }
@@ -34,7 +36,6 @@ fn view(app: &App, _model: &Model, frame: Frame) {
 
     draw.background().color(BLACK);
 
-
     let center_rect: Rect<f32> = Rect::from_w_h(400.0, 400.0);
     draw.rect()
         .xy(center_rect.xy())
@@ -42,6 +43,6 @@ fn view(app: &App, _model: &Model, frame: Frame) {
         .color(WHITE); 
 
 
-
+    
     draw.to_frame(app, &frame).unwrap();
 }

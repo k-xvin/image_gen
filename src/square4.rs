@@ -48,26 +48,6 @@ fn view(app: &App, model: &Model, frame: Frame) {
 
     draw.background().color(model.palette[0]);
     
-    // let center_rect: Rect<f32> = Rect::from_w_h(800.0, 800.0);
-    // draw.rect()
-    //     .xy(center_rect.xy())
-    //     .wh(center_rect.wh())
-    //     .no_fill()
-    //     .stroke_weight(5.0)
-    //     .stroke_color(model.palette[3]); 
-
-    // split_random(&draw, center_rect, &rand_color, &model.palette);
-
-
-    // let center_rect2: Rect<f32> = Rect::from_w_h(200.0, 200.0);
-    // draw.rect()
-    //     .xy(center_rect2.xy())
-    //     .wh(center_rect2.wh())
-    //     .no_fill()
-    //     .stroke_weight(5.0)
-    //     .stroke_color(model.palette[3]); 
-    // split_random(&draw, center_rect2, &rand_color, &model.palette);
-
     // sloppy code to center it but whatever
     let size = 100.0;
     let margin = 50.0;
@@ -89,11 +69,6 @@ fn view(app: &App, model: &Model, frame: Frame) {
             split_random(&draw, rect, &rand_color, &model.palette);
         }
     }
-
-    // draw.ellipse()
-    //     .x_y(0.0, 0.0)
-    //     .radius(10.0)
-    //     .color(WHITE);
 
 
     draw.to_frame(app, &frame).unwrap();
