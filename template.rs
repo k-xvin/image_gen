@@ -1,4 +1,5 @@
 use nannou::prelude::*;
+use chrono::Utc;
 
 struct Model {
 }
@@ -21,7 +22,7 @@ fn model(app: &App) -> Model {
 
 fn key_pressed(app: &App, _model: &mut Model, key: Key) {
     if key == Key::Space {
-     app.main_window().capture_frame("screenshots/template.png");
+     app.main_window().capture_frame(format!("screenshots/template/template_{}.png", Utc::now().timestamp()));
     }
 }
 

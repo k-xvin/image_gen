@@ -1,26 +1,38 @@
-generate name:
-    @echo 'Generating template {{name}}...'
+default:
+    @just --list
+
+# Create a new artpiece to work on
+@generate name:
+    echo 'Generating template {{name}}...'
     cp template.rs src/{{name}}.rs
     sed -i 's/template/{{name}}/' src/{{name}}.rs
     echo >> Cargo.toml
     sed 's/template/{{name}}/' template.txt >> Cargo.toml
     echo >> Cargo.toml
-    @echo 'Template for {{name}} generated!'
+    echo 'Template for {{name}} generated!'
 
-remove name:
-    @echo 'Removing {{name}}...'
+# Delete a specific artpiece
+@remove name:
+    echo 'Removing {{name}}...'
     rm -i src/{{name}}.rs
     line=$(grep -n 'name = "{{name}}"' Cargo.toml | awk -F  ":" '{print $1}') && \
     range_low=$((line-2)) && \
     range_high=$((line+1))d && \
     sed -i "$range_low,$range_high" Cargo.toml
-    @echo '{{name}} removed!'
+    echo '{{name}} removed!'
 
+# Run the artpiece in non-release mode
+r name:
+    @echo 'Running {{name}}...'
+    cargo run --example {{name}}
+
+# Run the artpiece in release mode
 run name:
     @echo 'Running {{name}}...'
     cargo run --release --example {{name}}
 
-gif name:
+# Convert the artpiece into a gif
+gif name framerate='1':
     @echo 'Generating gif for {{name}}...'
-    # TODO ffmpeg stuff here
-    @echo 'Gif for {{name}} generated!'
+    ffmpeg -framerate {{framerate}} -pattern_type glob -i "screenshots/{{name}}/{{name}}_*.png" -filter_complex "fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y screenshots/{{name}}.gif
+    @echo 'Gif for {{name}} generated!'cd
