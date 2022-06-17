@@ -2,6 +2,7 @@ use nannou::prelude::*;
 use chrono::Utc;
 
 struct Model {
+    palette: Vec<Srgba<u8>>,
 }
 
 fn main() {
@@ -17,7 +18,18 @@ fn model(app: &App) -> Model {
     .build()
     .unwrap();
 
-    Model {}
+    // https://www.color-hex.com/color-palette/27739
+    let palette = vec![
+        Srgba::new(154,172,184,255),
+        Srgba::new(221,226,227,255),
+        Srgba::new(179,124,87,255),
+        Srgba::new(60,69,92,255),
+        Srgba::new(96,65,43,255),
+    ];
+
+    Model {
+        palette,
+    }
 }
 
 fn key_pressed(app: &App, _model: &mut Model, key: Key) {
@@ -42,8 +54,6 @@ fn view(app: &App, _model: &Model, frame: Frame) {
         .xy(center_rect.xy())
         .wh(center_rect.wh())
         .color(WHITE); 
-
-
     
     draw.to_frame(app, &frame).unwrap();
 }

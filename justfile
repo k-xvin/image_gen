@@ -5,9 +5,9 @@ default:
 @generate name:
     echo 'Generating template {{name}}...'
     cp template.rs src/{{name}}.rs
-    sed -i 's/template/{{name}}/' src/{{name}}.rs
+    sed -i 's/template/{{name}}/g' src/{{name}}.rs
     echo >> Cargo.toml
-    sed 's/template/{{name}}/' template.txt >> Cargo.toml
+    sed 's/template/{{name}}/g' template.txt >> Cargo.toml
     echo >> Cargo.toml
     echo 'Template for {{name}} generated!'
 
@@ -34,5 +34,6 @@ run name:
 # Convert the artpiece into a gif
 gif name framerate='1':
     @echo 'Generating gif for {{name}}...'
-    ffmpeg -framerate {{framerate}} -pattern_type glob -i "screenshots/{{name}}/{{name}}_*.png" -filter_complex "fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y screenshots/{{name}}.gif
+    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.png" -filter_complex "fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y screenshots/{{name}}.gif
+    # ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.png" screenshots/{{name}}.gif
     @echo 'Gif for {{name}} generated!'cd
