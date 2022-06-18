@@ -1,14 +1,17 @@
+mod helpers;
+
 use nannou::prelude::*;
 use chrono::Utc;
-
-struct Model {
-    palette: Vec<Srgba<u8>>,
-}
 
 fn main() {
     nannou::app(model)
         .view(view)
+        .update(update)
         .run();
+}
+
+struct Model {
+    palette: Vec<Hsla>,
 }
 
 fn model(app: &App) -> Model {
@@ -18,13 +21,13 @@ fn model(app: &App) -> Model {
     .build()
     .unwrap();
 
-    // https://www.color-hex.com/color-palette/27739
+    // https://coolors.co/cc444b-da5552-df7373-e39695-e4b1ab
     let palette = vec![
-        Srgba::new(154,172,184,255),
-        Srgba::new(221,226,227,255),
-        Srgba::new(179,124,87,255),
-        Srgba::new(60,69,92,255),
-        Srgba::new(96,65,43,255),
+        helpers::hsla_from_hex_rgb(0xcc444b),
+        helpers::hsla_from_hex_rgb(0xda5552),
+        helpers::hsla_from_hex_rgb(0xdf7373),
+        helpers::hsla_from_hex_rgb(0xe39695),
+        helpers::hsla_from_hex_rgb(0xe4b1ab),
     ];
 
     Model {
@@ -32,9 +35,15 @@ fn model(app: &App) -> Model {
     }
 }
 
+// Capture output at 30fps (skip every other frame)
+fn update(app: &App, _model: &mut Model, _update: Update) {
+    // helpers::save_at_30fps(app, "template");
+}
+
+// Capture single screenshot
 fn key_pressed(app: &App, _model: &mut Model, key: Key) {
     if key == Key::Space {
-     app.main_window().capture_frame(format!("screenshots/template/template_{}.png", Utc::now().timestamp()));
+     app.main_window().capture_frame(format!("screenshots/template_{}.png", Utc::now().timestamp()));
     }
 }
 
