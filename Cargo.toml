@@ -28,3 +28,7 @@ path = "src/square4.rs"
 [[example]]
 name = "6_16_22"
 path = "src/6_16_22.rs"
+
+[[example]]
+name = "6_18_22"
+path = "src/6_18_22.rs"
