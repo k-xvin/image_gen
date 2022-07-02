@@ -24,12 +24,12 @@ default:
 # Run the artpiece in non-release mode
 r name:
     @echo 'Running {{name}}...'
-    cargo run --example {{name}}
+    cargo run --bin {{name}}
 
 # Run the artpiece in release mode
 run name:
     @echo 'Running {{name}}...'
-    cargo run --release --example {{name}}
+    cargo run --release --bin {{name}}
 
 # Convert the artpiece into a gif
 gif name framerate='1':
