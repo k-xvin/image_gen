@@ -31,7 +31,7 @@ fn model(app: &App) -> Model {
 
 // Capture output at 30fps (skip every other frame)
 fn update(_app: &App, _model: &mut Model, _update: Update) {
-    helpers::save_at_30fps(_app, "7_2_22");
+    helpers::save_at_30fps(_app, "7_2_22_jpg");
 }
 
 // Capture single screenshot

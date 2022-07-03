@@ -11,7 +11,7 @@ pub fn save_at_30fps(app: &App, filename: &str) {
         return;
     }
 
-    app.main_window().capture_frame(format!("screenshots/{}/{}_{}.png", filename, filename, app.elapsed_frames()/frames_to_skip));
+    app.main_window().capture_frame(format!("screenshots/{}/{}_{}.jpg", filename, filename, app.elapsed_frames()/frames_to_skip));
 }
 
 /// Convert a color from RGB to HSLA

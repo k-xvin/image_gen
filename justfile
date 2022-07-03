@@ -32,17 +32,19 @@ run name:
     cargo run --release --bin {{name}}
 
 # Convert the artpiece into a gif
-gif name framerate='1':
+gif_full name framerate='30':
     @echo 'Generating gif for {{name}}...'
-    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.png" -filter_complex "fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y screenshots/{{name}}.gif
+    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.jpg" -filter_complex "fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y screenshots/{{name}}_full.gif
     @echo 'Gif for {{name}} generated!'cd
 
-gif_limit name framerate='1':
+gif_limit name framerate='30':
     @echo 'Generating gif for {{name}}...'
-    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.png" -filter_complex "fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y -fs 8000000 screenshots/{{name}}_limit.gif
+    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.jpg" -filter_complex "scale=800:600,fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y -fs 16000000 screenshots/{{name}}_limit.gif
+    @echo  'Running ffmpeg output through gifsicle'
+    gifsicle -V -b -O3 --lossy=20 screenshots/{{name}}_limit.gif
     @echo 'Gif for {{name}} generated!'cd
 
-gif_no_filter name framerate='1':
-    @echo 'Generating gif for {{name}}...'
-    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.png" screenshots/{{name}}_no_filter.gif
-    @echo 'Gif for {{name}} generated!'cd
+# gif_no_filter name framerate='1':
+#     @echo 'Generating gif for {{name}}...'
+#     ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.png" screenshots/{{name}}_no_filter.gif
+#     @echo 'Gif for {{name}} generated!'cd

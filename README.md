@@ -5,3 +5,6 @@ Now you can run the utility commands in the `justfile`
 
 `just gif_limit [name] [fps]`
 
+Finished pieces can be viewed at https://kxvin.com
+
+
