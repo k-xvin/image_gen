@@ -35,6 +35,7 @@ run name:
 gif_full name framerate='30':
     @echo 'Generating gif for {{name}}...'
     ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.jpg" -filter_complex "fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y screenshots/{{name}}_full.gif
+    gifsicle -V -b -O3 --lossy=20 screenshots/{{name}}_full.gif
     @echo 'Gif for {{name}} generated!'cd
 
 gif_limit name framerate='30':
