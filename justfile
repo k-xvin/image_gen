@@ -39,9 +39,11 @@ gif_full name framerate='30':
 
 gif_limit name framerate='30':
     @echo 'Generating gif for {{name}}...'
-    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.jpg" -filter_complex "scale=800:600,fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y -fs 16000000 screenshots/{{name}}_limit.gif
+    # // we cap at 160000000 bytes (16Mb)
+    ffmpeg -framerate {{framerate}} -i "screenshots/{{name}}/{{name}}_%d.jpg" -filter_complex "scale=800:600,fps={{framerate}},split=2[palette_in][gif];[palette_in]palettegen[palette_out];[gif]fifo[gif_fifo]; [gif_fifo][palette_out]paletteuse" -y -fs 10000000 screenshots/{{name}}_limit.gif
     @echo  'Running ffmpeg output through gifsicle'
-    gifsicle -V -b -O3 --lossy=20 screenshots/{{name}}_limit.gif
+    # // use gifsicle to cut gif size by >50%, so it can be under 8Mb for discord
+    gifsicle -V -b -O3 --lossy=35 screenshots/{{name}}_limit.gif
     @echo 'Gif for {{name}} generated!'cd
 
 # gif_no_filter name framerate='1':
