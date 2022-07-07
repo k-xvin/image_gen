@@ -1,4 +1,4 @@
-// a perlin flow field, but the particle calcs aren't quite done
+// a perlin flow field
 
 mod helpers;
 
@@ -129,7 +129,7 @@ fn update_point(noise: &Perlin, mut p: &mut Particle, t: f32){
 
 // Capture output at 30fps (skip every other frame)
 fn update(_app: &App, model: &mut Model, _update: Update) {
-    helpers::save_at_30fps(_app, "7_5_22");
+    // helpers::save_at_30fps(_app, "7_5_22");
 
     model.t += 0.001;
 

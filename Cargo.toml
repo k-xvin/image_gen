@@ -3,7 +3,16 @@ name = "image_gen"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# Fast compiles https://github.com/bevyengine/bevy/blob/main/.cargo/config_fast_builds
+
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = ["-Clink-arg=-fuse-ld=lld"]
+
+[profile.dev]
+debug = false
+
+####
 
 [dependencies]
 nannou = "0.18.1"
@@ -44,3 +53,7 @@ path = "src/7_4_22.rs"
 [[bin]]
 name = "7_5_22"
 path = "src/7_5_22.rs"
+
+[[bin]]
+name = "7_6_22"
+path = "src/7_6_22.rs"
